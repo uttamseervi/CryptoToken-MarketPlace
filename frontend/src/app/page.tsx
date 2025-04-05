@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, CheckCircle, Github, Lock, Shield, Zap } from "lucide-react"
 import { motion } from "framer-motion"
-
+import { client } from "@/app/client"
+import { ConnectButton } from "thirdweb/react"
+import { sepolia } from "thirdweb/chains";
 export default function Home() {
   const container = {
     hidden: { opacity: 0 },
@@ -62,11 +64,7 @@ export default function Home() {
             <div className="flex flex-1 items-center justify-end space-x-4 py-2">
               <nav className="flex items-center space-x-1">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href={"/dashboard"}>
-                    <Button variant="default" size="default">
-                      Launch app
-                    </Button>
-                  </Link>
+                  <ConnectButton client={client} chain={sepolia}/>
                 </motion.div>
               </nav>
             </div>
@@ -93,9 +91,11 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col gap-2 min-[400px]:flex-row">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button className="px-8">
-                        Start Trading <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
+                      <Link href={"/dashboard"}>
+                        <Button className="px-8">
+                          Start Trading <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button variant="outline">Learn More</Button>

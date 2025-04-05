@@ -8,6 +8,8 @@ import Link from "next/link"
 import { BarChart3, Coins, History, Home, ListPlus, LogOut, Settings } from "lucide-react"
 import { ConnectButton } from "thirdweb/react"
 import { client } from "@/app/client"
+import { sepolia } from "thirdweb/chains";
+
 import {
     Sidebar,
     SidebarContent,
@@ -21,6 +23,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "../ui/button"
 import { Separator } from "@radix-ui/react-separator"
+import { useActiveAccount, useWalletBalance } from "thirdweb/react"
 
 interface LayoutProps {
     children: React.ReactNode
@@ -30,9 +33,15 @@ export function Layout({ children }: LayoutProps) {
     const [connected, setConnected] = useState(false)
     const pathname = usePathname()
     const router = useRouter()
-
+    const account = useActiveAccount()
+    const { data: balance, isLoading } = useWalletBalance({
+        client,
+        address: account?.address,
+        chain: sepolia
+    })
+    isLoading ? console.log("loading wait") : console.log(`the balance is ${balance?.displayValue} ${balance?.symbol}`)
     const menuItems = [
-        { path: "/", label: "Dashboard", icon: Home },
+        { path: "/dashboard", label: "Dashboard", icon: Home },
         { path: "/my-tokens", label: "My Tokens", icon: Coins },
         { path: "/list-token", label: "List Token", icon: ListPlus },
         { path: "/history", label: "History", icon: History },
@@ -90,9 +99,13 @@ export function Layout({ children }: LayoutProps) {
                         <SidebarTrigger />
                         <div className="flex-1" />
                         <div className="p-6">
-                            {/* <Button > */}
-                                <ConnectButton client={client} />
-                            {/* </Button> */}
+
+
+                            {account?.address ? <Button variant="secondary">
+                                {`${account.address.slice(0, 11)}.....`} {" "} {balance?.displayValue}{balance?.symbol}
+                            </Button> : <ConnectButton client={client} />}
+
+
                         </div>
                     </header>
                     <main className="flex-1 overflow-auto p-4 lg:p-6">{children}</main>

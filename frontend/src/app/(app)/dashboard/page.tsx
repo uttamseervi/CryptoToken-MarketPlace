@@ -96,28 +96,28 @@ export default function Dashboard() {
                             symbol="ETH"
                             price={1802.45}
                             change={2.34}
-                            image="/placeholder.svg?height=40&width=40"
+                            image=""
                         />
                         <TokenCard
                             name="Bitcoin"
                             symbol="BTC"
                             price={34502.67}
                             change={-1.23}
-                            image="/placeholder.svg?height=40&width=40"
+                            image=""
                         />
                         <TokenCard
                             name="Solana"
                             symbol="SOL"
                             price={102.78}
                             change={5.67}
-                            image="/placeholder.svg?height=40&width=40"
+                            image=""
                         />
                         <TokenCard
                             name="Cardano"
                             symbol="ADA"
                             price={0.45}
                             change={-0.89}
-                            image="/placeholder.svg?height=40&width=40"
+                            image=""
                         />
                     </div>
                 </div>
